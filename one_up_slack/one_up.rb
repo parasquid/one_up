@@ -11,9 +11,8 @@ post "/incoming" do
     "text" => "It's 80 degrees right now.",
     "attachments" => [
         {
-            "text" => "Partly cloudy today and tomorrow"
+            "text" => "Partly cloudy today and tomorrow #{params.inspect}"
         }
-    ],
-    params: params.to_json
+    ]
   }.to_json
 end
