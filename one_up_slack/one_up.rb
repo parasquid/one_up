@@ -12,6 +12,7 @@ post "/incoming" do
         {
             "text" => "Partly cloudy today and tomorrow"
         }
-    ]
+    ],
+    params: params.inspect
   }.to_json
 end
