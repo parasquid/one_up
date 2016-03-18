@@ -1,4 +1,5 @@
-require 'sinatra'
+require "sinatra"
+require "json"
 
 get '/' do
   'Hello world!'
@@ -13,6 +14,6 @@ post "/incoming" do
             "text" => "Partly cloudy today and tomorrow"
         }
     ],
-    params: params.inspect
+    params: params.to_json
   }.to_json
 end
