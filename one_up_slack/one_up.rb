@@ -37,6 +37,7 @@ class SlackResponseJob
 
   def payload(username, receiver, message, gift, channel)
     {
+      "access_token": ENV["SLACK_BOT_TOKEN"],
       "response_type": "in_channel",
       "text" => "<@#{username}> sent a #{gift} to <#{receiver}>",
       "channel" => "#{channel}",
