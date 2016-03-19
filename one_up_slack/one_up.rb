@@ -1,6 +1,7 @@
 require "sinatra"
 require "json"
 require 'net/http'
+require "sucker_punch"
 
 $LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
 require "parser"
@@ -9,14 +10,8 @@ get '/' do
   'Hello world!'
 end
 
-post "/incoming" do
-  puts params.inspect
-  SlackResponseJob.perform_async(params["response_url"], params)
-  status 200
-end
-
 class SlackResponseJob
-  include SuckerPunch::Job
+  include ::SuckerPunch::Job
 
   def perform(response_url, params)
     sleep 1
@@ -48,3 +43,10 @@ class SlackResponseJob
     }
   end
 end
+
+post "/incoming" do
+  puts params.inspect
+  SlackResponseJob.perform_async(params["response_url"], params)
+  status 200
+end
+
