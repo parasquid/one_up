@@ -10,7 +10,7 @@ get '/' do
 end
 
 post "/incoming" do
-  content_type :json
+  puts params.inspect
   delayed_response(params["response_url"], params)
   status 200
 end
