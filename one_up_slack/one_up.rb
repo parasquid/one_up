@@ -43,7 +43,7 @@ class SlackResponseJob
               "title" => "<@#{username}> sent a #{gift} to <#{receiver}>",
               "text" => "#{message}",
               "color" => "good",
-              "mrkdwn_in" =>  x ["text"],
+              "mrkdwn_in" => ["text"],
               "thumb_url" => "http://1up.mindvalley.net/pictures/0000/0048/mushroom.png"
           }
       ]
