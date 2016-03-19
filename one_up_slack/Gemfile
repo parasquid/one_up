@@ -3,6 +3,7 @@ ruby '2.2.4'
 
 gem "sinatra"
 gem "json"
+gem "puma"
 
 gem "one_up"
 
