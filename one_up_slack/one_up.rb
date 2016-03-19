@@ -44,7 +44,7 @@ class SlackResponseJob
               "text" => "#{message}",
               "color" => "good",
               "mrkdwn_in" => ["text"],
-              "thumb_url" => "http://1up.mindvalley.net/pictures/0000/0048/mushroom.png"
+              "thumb_url" => "https://emoji.slack-edge.com/T02SYJ9MX/shaf/89aad6296d28ecd2.gif"
           }
       ]
     }
