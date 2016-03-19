@@ -16,17 +16,17 @@ post "/incoming" do
 end
 
 def delayed_response(response_url, params)
-  text = Parser.new(params["text"]).parse
-  username = params["user_name"]
-  body = payload(username, text.receiver, text.message, text.gift).to_json
   uri = URI(response_url)
-
-  puts payload
   Net::HTTP.start(uri.host, uri.port) do |http|
-    request = Net::HTTP::Post.new(response_url)
-    request["Content-Type"] = "application/json"
-    request.body = body
-    response = http.request request
+    req = Net::HTTP::Post.new(response_url)
+
+    text = Parser.new(params["text"]).parse
+    username = params["user_name"]
+    body = payload(username, text.receiver, text.message, text.gift).to_json
+    req.body = body
+
+    req["Content-Type"] = "application/json"
+    res = http.request req
     puts response.inspect
   end
 end
