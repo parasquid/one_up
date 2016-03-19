@@ -42,7 +42,8 @@ class SlackResponseJob
       "attachments" => [
           {
               "text" => "#{message}",
-              "color" => "good"
+              "color" => "good",
+              "thumb_url" => "http://1up.mindvalley.net/pictures/0000/0048/mushroom.png"
           }
       ]
     }
