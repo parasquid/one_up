@@ -57,6 +57,6 @@ post "/incoming" do
   {
     "response_type" => "ephemeral",
     "text" => "Gotcha, sending a 1up"
-  }
+  }.to_json
   end
 
