@@ -51,8 +51,12 @@ class SlackResponseJob
 end
 
 post "/incoming" do
+  content_type :json
   puts params.inspect
   SlackResponseJob.perform_async(params["response_url"], params)
-  status 200
-end
+  {
+    "response_type" => "ephemeral",
+    "text" => "Gotcha, sending a 1up"
+  }
+  end
 
