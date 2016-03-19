@@ -30,6 +30,7 @@ class SlackResponseJob
       req.body = body
 
       req["Content-Type"] = "application/json"
+      puts req.inspect
       res = http.request req
       puts res.inspect
     end
