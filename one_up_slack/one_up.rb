@@ -21,6 +21,7 @@ def delayed_response(response_url, params)
   body = payload(username, text.receiver, text.message, text.gift).to_json
   uri = URI(response_url)
 
+  puts payload
   Net::HTTP.start(uri.host, uri.port) do |http|
     request = Net::HTTP::Post.new(response_url)
     request["Content-Type"] = "application/json"
