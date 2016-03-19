@@ -37,12 +37,13 @@ class SlackResponseJob
     {
       "access_token": ENV["SLACK_BOT_TOKEN"],
       "response_type": "in_channel",
-      "text" => "<@#{username}> sent a #{gift} to <#{receiver}>",
       "channel" => "#{channel}",
       "attachments" => [
           {
+              "title" => "<@#{username}> sent a #{gift} to <#{receiver}>",
               "text" => "#{message}",
               "color" => "good",
+              "mrkdwn_in" =>  x ["text"],
               "thumb_url" => "http://1up.mindvalley.net/pictures/0000/0048/mushroom.png"
           }
       ]
