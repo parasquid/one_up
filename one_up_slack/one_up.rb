@@ -21,7 +21,12 @@ class SlackResponseJob
 
       text = Parser.new(params["text"]).parse
       username = params["user_name"]
-      body = payload(username, text.receiver, text.message, text.gift).to_json
+      channel = params["channel_name"]
+      body = payload( username,
+                      text.receiver,
+                      text.message,
+                      text.gift,
+                      channel ).to_json
       req.body = body
 
       req["Content-Type"] = "application/json"
@@ -30,10 +35,11 @@ class SlackResponseJob
     end
   end
 
-  def payload(username, receiver, message, gift)
+  def payload(username, receiver, message, gift, channel)
     {
       "response_type": "in_channel",
       "text" => "<@#{username}> sent a #{gift} to <#{receiver}>",
+      "channel" => "#{channel}",
       "attachments" => [
           {
               "text" => "#{message}",
