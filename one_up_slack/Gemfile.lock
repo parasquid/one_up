@@ -22,12 +22,16 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    httparty (0.13.7)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     json (1.8.1)
     listen (3.0.6)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9.7)
     lumberjack (1.0.10)
     method_source (0.8.2)
+    multi_xml (0.5.5)
     nenv (0.3.0)
     notiffany (0.0.8)
       nenv (~> 0.1)
@@ -79,6 +83,7 @@ PLATFORMS
 
 DEPENDENCIES
   guard-rspec
+  httparty
   json
   one_up
   pry

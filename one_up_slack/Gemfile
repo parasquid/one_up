@@ -5,6 +5,7 @@ gem "sinatra"
 gem "json"
 gem "puma"
 gem 'sucker_punch', '~> 2.0'
+gem "httparty"
 
 gem "one_up"
 

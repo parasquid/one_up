@@ -2,6 +2,7 @@ require "sinatra"
 require "json"
 require 'net/http'
 require "sucker_punch"
+require "httpartyt"
 
 $LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
 require "parser"
@@ -15,25 +16,21 @@ class SlackResponseJob
 
   def perform(response_url, params)
     sleep 1
-    uri = URI(response_url)
-    Net::HTTP.start(uri.host, uri.port) do |http|
-      req = Net::HTTP::Post.new(response_url)
 
-      text = Parser.new(params["text"]).parse
-      username = params["user_name"]
-      channel = params["channel_name"]
-      body = payload( username,
-                      text.receiver,
-                      text.message,
-                      text.gift,
-                      channel ).to_json
-      req.body = body
+    text = Parser.new(params["text"]).parse
+    username = params["user_name"]
+    channel = params["channel_name"]
 
-      req["Content-Type"] = "application/json"
-      puts req.inspect
-      res = http.request req
-      puts res.inspect
-    end
+    body = payload( username,
+                    text.receiver,
+                    text.message,
+                    text.gift,
+                    channel ).to_json
+
+    res = HTTParty.post(
+      response_url, body: body, ,
+      headers: {'Content-Type' => 'application/json'}
+    )
   end
 
   def payload(username, receiver, message, gift, channel)
