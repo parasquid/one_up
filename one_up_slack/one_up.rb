@@ -11,35 +11,40 @@ end
 
 post "/incoming" do
   puts params.inspect
-  delayed_response(params["response_url"], params)
+  SlackResponseJob.perform_async(params["response_url"], params)
   status 200
 end
 
-def delayed_response(response_url, params)
-  uri = URI(response_url)
-  Net::HTTP.start(uri.host, uri.port) do |http|
-    req = Net::HTTP::Post.new(response_url)
+class SlackResponseJob
+  include SuckerPunch::Job
 
-    text = Parser.new(params["text"]).parse
-    username = params["user_name"]
-    body = payload(username, text.receiver, text.message, text.gift).to_json
-    req.body = body
+  def perform(response_url, params)
+    sleep 1
+    uri = URI(response_url)
+    Net::HTTP.start(uri.host, uri.port) do |http|
+      req = Net::HTTP::Post.new(response_url)
 
-    req["Content-Type"] = "application/json"
-    res = http.request req
-    puts response.inspect
+      text = Parser.new(params["text"]).parse
+      username = params["user_name"]
+      body = payload(username, text.receiver, text.message, text.gift).to_json
+      req.body = body
+
+      req["Content-Type"] = "application/json"
+      res = http.request req
+      puts response.inspect
+    end
   end
-end
 
-def payload(username, receiver, message, gift)
-  {
-    "response_type": "in_channel",
-    "text" => "<@#{username}> sent a #{gift} to <#{receiver}>",
-    "attachments" => [
-        {
-            "text" => "#{message}",
-            "color" => "good"
-        }
-    ]
-  }
+  def payload(username, receiver, message, gift)
+    {
+      "response_type": "in_channel",
+      "text" => "<@#{username}> sent a #{gift} to <#{receiver}>",
+      "attachments" => [
+          {
+              "text" => "#{message}",
+              "color" => "good"
+          }
+      ]
+    }
+  end
 end

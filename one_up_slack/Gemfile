@@ -4,6 +4,7 @@ ruby '2.2.4'
 gem "sinatra"
 gem "json"
 gem "puma"
+gem 'sucker_punch', '~> 2.0'
 
 gem "one_up"
 
