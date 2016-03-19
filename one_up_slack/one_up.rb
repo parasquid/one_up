@@ -28,7 +28,7 @@ class SlackResponseJob
                     channel ).to_json
 
     res = HTTParty.post(
-      response_url, body: body, ,
+      response_url, body: body,
       headers: {'Content-Type' => 'application/json'}
     )
   end
