@@ -9,3 +9,10 @@ gem "one_up"
 group :development do
   gem "shotgun"
 end
+
+group :development, :test do
+  gem "rspec", "~> 3.0"
+  gem "guard-rspec"
+  gem "rspec-given"
+  gem "pry"
+end
