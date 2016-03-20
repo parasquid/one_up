@@ -13,7 +13,7 @@ module OneUp
 
     def self.entries_from_range(today_start, today_end)
       all.select { |e| (today_start..today_end).cover? e.created_at }
-     end
+    end
   end
 
   class Ledger
