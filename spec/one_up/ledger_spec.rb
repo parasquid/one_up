@@ -52,8 +52,8 @@ describe OneUp::Ledger do
         3.times { ledger.add_entry(entry.merge(created_at: today)) }
         ledger.add_entry(entry.merge(created_at: tomorrow))
       }
-      When(:result) { ledger.entries_today.count }
-      Then { result == 3 }
+      When(:result) { ledger.entries_today }
+      Then { result.count == 3 }
     end
   end
 end
