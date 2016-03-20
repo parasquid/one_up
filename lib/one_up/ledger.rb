@@ -18,6 +18,10 @@ module OneUp
       @repository
     end
 
+    def entries_today
+      2
+    end
+
     private
 
     def default_repository
