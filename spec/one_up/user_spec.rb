@@ -6,6 +6,7 @@ describe OneUp::User do
   Given(:user_name) { "test_name" }
   Given(:ledger) { OneUp::Ledger.new }
   Given(:giver) { OneUp::User.new(name: user_name, ledger: ledger) }
+  Given(:message) { "this is a message" }
 
   context "can have attributes" do
     When(:result) { giver.name }
@@ -16,7 +17,7 @@ describe OneUp::User do
     Given(:gift) { double("Gift") }
     Given(:receiver) { double("Receiver") }
     context "user can give a gift" do
-      When { giver.give(gift, to: receiver) }
+      When { giver.give(gift, to: receiver, message: message) }
       Then { ledger.entries.count == 1 }
     end
   end

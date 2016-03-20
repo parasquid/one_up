@@ -4,11 +4,12 @@ module OneUp
       @repository = repository
     end
 
-    def add_entry(giver:, receiver:, gift:, created_at: Time.now)
+    def add_entry(giver:, receiver:, gift:, message:, created_at: Time.now)
       @repository << {
         giver: giver,
         receiver: receiver,
         gift: gift,
+        message: message,
         created_at: created_at
       }
     end

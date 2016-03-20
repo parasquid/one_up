@@ -6,8 +6,8 @@ module OneUp
       @ledger = ledger
     end
 
-    def give(gift, to:)
-      @ledger.add_entry(giver: self, receiver: to, gift: gift)
+    def give(gift, to:, message:)
+      @ledger.add_entry(giver: self, receiver: to, gift: gift, message: message)
     end
   end
 end

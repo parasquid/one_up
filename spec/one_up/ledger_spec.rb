@@ -6,11 +6,19 @@ describe OneUp::Ledger do
   Given(:giver) { double("Giver") }
   Given(:receiver) { double("Receiver") }
   Given(:gift) { double("Gift") }
+  Given(:message) { "this is the message" }
 
   context "can add an entry" do
-    When { ledger.add_entry(giver: giver, receiver: receiver, gift: gift) }
+    When { ledger.add_entry(giver: giver, receiver: receiver, gift: gift, message: message) }
     Then { expect(ledger.entries.first)
-            .to include({giver: giver, receiver: receiver, gift: gift})
+            .to include(
+              {
+                giver: giver,
+                receiver: receiver,
+                gift: gift,
+                message: message
+              }
+            )
     }
   end
 
@@ -20,6 +28,7 @@ describe OneUp::Ledger do
             giver: giver,
             receiver: receiver,
             gift: gift,
+            message: message,
             created_at: created_at)
     }
     Then { expect(ledger.entries.first)
@@ -27,12 +36,15 @@ describe OneUp::Ledger do
               giver: giver,
               receiver: receiver,
               gift: gift,
+              message: message,
               created_at: created_at)
     }
   end
 
   context "can list all entries" do
-    When { 3.times {ledger.add_entry(giver: giver, receiver: receiver, gift: gift)} }
+    When { 3.times {ledger.add_entry(
+      giver: giver, receiver: receiver, gift: gift, message: message
+    )} }
     Then { ledger.entries.count == 3 }
   end
 end
