@@ -29,18 +29,26 @@ describe OneUp::Ledger do
 
   context "can list all entries that were given today" do
     Given(:today_date) { Date.today }
-    Given(:today) { Time.at(today_date.to_time.to_i) }
-    Given(:yesterday) { Time.at((today_date - 1).to_time.to_i) }
-    Given(:tomorrow) { Time.at((today_date + 1).to_time.to_i) }
+    Given(:today) { today_date.to_time }
+    Given(:yesterday) { (today_date - 1).to_time }
+    Given(:tomorrow) { (today_date + 1).to_time }
     context "two entries today" do
       Given {
         ledger.add_entry(entry.merge(created_at: yesterday))
-        ledger.add_entry(entry.merge(created_at: today))
-        ledger.add_entry(entry.merge(created_at: today))
+        2.times { ledger.add_entry(entry.merge(created_at: today)) }
         ledger.add_entry(entry.merge(created_at: tomorrow))
       }
       When(:result) { ledger.entries_today }
       Then { result == 2 }
+    end
+    context "three entries today", focus: true do
+      Given {
+        ledger.add_entry(entry.merge(created_at: yesterday))
+        3.times { ledger.add_entry(entry.merge(created_at: today)) }
+        ledger.add_entry(entry.merge(created_at: tomorrow))
+      }
+      When(:result) { ledger.entries_today.count }
+      Then { result == 3 }
     end
   end
 end

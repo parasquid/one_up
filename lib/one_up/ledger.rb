@@ -19,7 +19,9 @@ module OneUp
     end
 
     def entries_today
-      2
+      today_start = Date.today.to_time
+      today_end = (Date.today + 1).to_time - 1
+      @repository.select { |e| (today_start..today_end).cover? e[:created_at] }
     end
 
     private
